@@ -68,29 +68,29 @@ let now = new Date();
 
 switch (type) {
     case 'model':
-        file_content = fs.readFileSync('./templates/model.ejs').toString();
+        file_content = fs.readFileSync('./scripts/templates/model.ejs').toString();
         file_content = ejs.render(file_content, package_config);
         file_name = package_config.name+'.php';
         des_path = './src/'+file_name;
         break;
     case 'view':
-        file_content = fs.readFileSync('./templates/view.ejs').toString();
+        file_content = fs.readFileSync('./scripts/templates/view.ejs').toString();
         file_content = ejs.render(file_content, package_config);
         file_name = package_config.name+'.blade.php';
         des_path = './views/'+file_name;
         break;
     case 'controller':
-        file_content = fs.readFileSync('./templates/controller.ejs').toString();
+        file_content = fs.readFileSync('./scripts/templates/controller.ejs').toString();
         if(plain)
         {
-            file_content = fs.readFileSync('./templates/controller-plain.ejs').toString();
+            file_content = fs.readFileSync('./scripts/templates/controller-plain.ejs').toString();
         }
         file_content = ejs.render(file_content, package_config);
         file_name = package_config.name+'Controller.php';
         des_path = './src/'+file_name;
         break;
     case 'seed':
-        file_content = fs.readFileSync('./templates/seed.ejs').toString();
+        file_content = fs.readFileSync('./scripts/templates/seed.ejs').toString();
         file_content = ejs.render(file_content, package_config);
         file_name = package_config.name+'TableSeeder.php';
         des_path = './database/seeds/'+file_name;
@@ -103,7 +103,7 @@ switch (type) {
         table_name = table_name.replace(" ", "");
         package_config.class_name = table_name;
 
-        file_content = fs.readFileSync('./templates/migration.ejs').toString();
+        file_content = fs.readFileSync('./scripts/templates/migration.ejs').toString();
 
         log.red('class_name='+package_config.class_name);
 

@@ -47,7 +47,7 @@ fsSync.write('./config.json', JSON.stringify(package_obj));
 | Generate package files
 |--------------------------------------------------------------------------
 */
-let template_path = './templates/package/';
+let template_path = './scripts/templates/package/';
 
 let files_list = [];
 files_list = traverseDir(template_path, files_list);
@@ -68,14 +68,15 @@ files_list.forEach(function(item) {
     file_content = fs.readFileSync(item).toString();
 
     file_name = path.basename(item);
-    new_path = item.replace('templates', '');
+    new_path = item.replace('scripts', '');
+    new_path = new_path.replace('templates', '');
     new_path = new_path.replace('package', '');
+    new_path = new_path.replace(/\\/,'');
     new_path = new_path.replace(/\\/,'');
     new_path = new_path.replace(/\\/,'');
 
 
     new_path = new_path.replace(file_name,'');
-
 
 
     switch(file_name) {
@@ -91,6 +92,16 @@ files_list.forEach(function(item) {
             file_content = fs.readFileSync(item).toString();
             file_content = ejs.render(file_content, package_obj);
             file_name = 'composer.json';
+            break;
+        case 'Facade.ejs':
+            file_content = fs.readFileSync(item).toString();
+            file_content = ejs.render(file_content, package_obj);
+            file_name = package_obj.package_name+'Facade.php';
+            break;
+        case 'package.ejs':
+            file_content = fs.readFileSync(item).toString();
+            file_content = ejs.render(file_content, package_obj);
+            file_name = package_obj.package_name+'.php';
             break;
     }
 

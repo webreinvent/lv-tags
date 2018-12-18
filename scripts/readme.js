@@ -5,7 +5,7 @@ let path = require('path');
 let fsSync = require('fs-sync');
 let ejs = require('ejs');
 
-let item = './templates/package/README.md';
+let item = './scripts/templates/package/README.md';
 file_content = fs.readFileSync(item).toString();
 let des_path = './README.md';
 fsSync.write(des_path, file_content);
