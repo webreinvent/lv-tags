@@ -1,12 +1,12 @@
 {
   "name": "webreinvent/lvtags",
-  "description": "Add tags to any Laravel Model and apply taggable Traits",
+  "description": "Add tags to any Laravel Model and apply taggable Traits ",
   "keywords": ["laravel"],
   "homepage": "https://www.webreinvent.com",
   "license": "MIT",
   "authors": [
     {
-      "name": "WebReinvent",
+      "name": "pradeep",
       "email": "we@webreinvent.com"
     }
   ],
