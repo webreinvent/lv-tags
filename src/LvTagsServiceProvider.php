@@ -1,6 +1,8 @@
 <?php namespace WebReinvent\LvTags;
 
 use Illuminate\Support\ServiceProvider;
+use WebReinvent\LvTags\Entities\Tag;
+use WebReinvent\LvTags\Observers\CrudObserver;
 
 class LvTagsServiceProvider extends ServiceProvider {
 
@@ -19,10 +21,11 @@ class LvTagsServiceProvider extends ServiceProvider {
     public function boot() {
 
         $this->handleConfigs();
-        // $this->handleMigrations();
+        $this->handleMigrations();
         // $this->handleViews();
         // $this->handleTranslations();
         // $this->handleRoutes();
+        $this->handleObservers();
     }
 
     /**
@@ -50,9 +53,9 @@ class LvTagsServiceProvider extends ServiceProvider {
 
         $configPath = __DIR__ . '/Config/lvtags.php';
 
-        $this->publishes([$configPath => config_path('lvtags.php')]);
+        $this->publishes([$configPath => config_path('lvtags.php')], 'config');
 
-        $this->mergeConfigFrom($configPath, 'LvTags');
+        $this->mergeConfigFrom($configPath, 'lvtags');
     }
 
     private function handleTranslations() {
@@ -64,12 +67,12 @@ class LvTagsServiceProvider extends ServiceProvider {
 
         $this->loadViewsFrom(__DIR__.'/Resources/views', 'lvtags');
 
-        $this->publishes([__DIR__.'/Resources/views' => base_path('resources/views/vendor/lvtags')]);
+        $this->publishes([__DIR__.'/Resources/views' => base_path('resources/views/vendor/lvtags')], 'views');
     }
 
     private function handleMigrations() {
 
-        $this->publishes([__DIR__ . '/Database/Migrations' => base_path('database/migrations')]);
+        $this->publishes([__DIR__ . '/Database/Migrations' => database_path('migrations')],  'migrations');
     }
 
     private function handleRoutes() {
@@ -78,4 +81,11 @@ class LvTagsServiceProvider extends ServiceProvider {
         include __DIR__.'/Routes/api.php';
 
     }
+
+
+    private function handleObservers()
+    {
+        Tag::observe(CrudObserver::class);
+    }
+
 }

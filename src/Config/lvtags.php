@@ -4,4 +4,10 @@
  * Your package config would go here
  */
 
-return [];
+return [
+
+    // Laravel Default User Model
+    'defaultUserModel'              => 'Model\Core\Entities\User',
+    //'defaultUserModel'              => 'App\User',
+
+];
